@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Flipbook</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Core Styles -->
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background-color: #1e1e1e;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      margin: 1rem 0 0.5rem;
+      font-size: 1.5rem;
+      text-align: center;
+    }
+
+    #controls {
+      margin-bottom: 1rem;
+    }
+
+    #controls button {
+      background: #444;
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      margin: 0 5px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    #controls button:hover {
+      background: #666;
+    }
+
+    #flipbook-container {
+      overflow: hidden;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    #flipbook {
+      width: 1600px;
+      height: 1000px;
+    }
+
+    #flipbook .page {
+      width: 400px;
+      height: 500px;
+      background-color: white;
+    }
+
+    #flipbook .page img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    @media (max-width: 900px) {
+      #flipbook {
+        transform: scale(0.8);
+        transform-origin: top;
+      }
+    }
+
+    
+  </style>
+
+  <!-- Scripts -->
+  <!-- <script src="js/jquery.min.js"></script> -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+  crossorigin="anonymous"></script>
+  <!-- <script src="js/jquery-ui.min.js"></script> -->
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" 
+  integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" 
+  crossorigin="anonymous"></script>
+  <script src="js/turn.min.js"></script>
+</head>
+<body>
+
+  <h1>ইউরেকা ১ বর্ষ ১ সংখ্যা</h1>
+
+  <div id="controls">
+    <button onclick="zoomIn()">Zoom In</button>
+    <button onclick="zoomOut()">Zoom Out</button>
+    <button onclick="resetZoom()">Reset</button>
+  </div>
+
+  <div id="flipbook-container">
+    <div id="flipbook">
+      <div class="page"><img src="images\Eureka 1st issue july 2025-1.webp" alt="Page 1"></div> <!-- Cover -->
+      <div class="page"><img src="images\Eureka 1st issue july 2025-2.webp" alt="Page 2"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-3.webp" alt="Page 3"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-4.webp" alt="Page 4"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-5.webp" alt="Page 5"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-6.webp" alt="Page 6"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-7.webp" alt="Page 7"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-8.webp" alt="Page 8"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-9.webp" alt="Page 9"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-10.webp" alt="Page 10"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-11.webp" alt="Page 11"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-12.webp" alt="Page 12"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-13.webp" alt="Page 13"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-14.webp" alt="Page 14"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-15.webp" alt="Page 15"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-16.webp" alt="Page 16"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-17.webp" alt="Page 17"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-18.webp" alt="Page 18"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-19.webp" alt="Page 19"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-20.webp" alt="Page 20"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-21.webp" alt="Page 21"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-22.webp" alt="Page 22"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-23.webp" alt="Page 23"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-24.webp" alt="Page 24"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-25.webp" alt="Page 25"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-26.webp" alt="Page 26"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-27.webp" alt="Page 27"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-28.webp" alt="Page 28"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-29.webp" alt="Page 29"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-30.webp" alt="Page 30"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-31.webp" alt="Page 31"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-32.webp" alt="Page 32"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-33.webp" alt="Page 33"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-34.webp" alt="Page 34"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-35.webp" alt="Page 35"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-36.webp" alt="Page 36"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-37.webp" alt="Page 37"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-38.webp" alt="Page 38"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-39.webp" alt="Page 39"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-40.webp" alt="Page 40"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-41.webp" alt="Page 41"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-42.webp" alt="Page 42"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-43.webp" alt="Page 43"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-44.webp" alt="Page 44"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-45.webp" alt="Page 45"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-46.webp" alt="Page 46"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-47.webp" alt="Page 47"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-48.webp" alt="Page 48"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-49.webp" alt="Page 49"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-50.webp" alt="Page 50"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-51.webp" alt="Page 51"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-52.webp" alt="Page 52"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-53.webp" alt="Page 53"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-54.webp" alt="Page 54"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-55.webp" alt="Page 55"></div>
+      <div class="page"><img src="images\Eureka 1st issue july 2025-56.webp" alt="Page 56"></div> <!-- Back Cover -->
+    </div>
+  </div>
+
+  <script>
+    let zoomLevel = 1;
+
+    $(function () {
+      $('#flipbook').turn({
+        width: 800,
+        height: 500,
+        autoCenter: true,
+        display: 'double',
+        elevation: 50,
+        gradients: true
+      });
+
+      $('#flipbook-container').draggable({
+        cursor: "grab"
+      });
+    });
+
+    function applyZoom() {
+      $('#flipbook').css('transform', `scale(${zoomLevel})`);
+      $('#flipbook').css('transform-origin', 'top center');
+    }
+
+    function zoomIn() {
+      zoomLevel += 0.2;
+      applyZoom();
+    }
+
+    function zoomOut() {
+      zoomLevel = Math.max(1, zoomLevel - 0.2);
+      applyZoom();
+    }
+
+    function resetZoom() {
+      zoomLevel = 1;
+      applyZoom();
+      $('#flipbook-container').scrollTop(0).scrollLeft(0);
+    }
+  </script>
+
+</body>
+</html>
