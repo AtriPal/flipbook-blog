@@ -1,206 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8">
-  <title>My Flipbook</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Core Styles -->
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <title>ইউরেকা - প্রথম সংখ্যা</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="js/turn.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali&display=swap" rel="stylesheet">
 
+  <style>
     body {
       margin: 0;
-      font-family: sans-serif;
-      background-color: #1e1e1e;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      background: #f2f2f2;
+      font-family: 'Noto Serif Bengali', serif;
+      overflow-x: hidden;
     }
 
     h1 {
-      margin: 1rem 0 0.5rem;
-      font-size: 1.5rem;
       text-align: center;
+      padding: 20px;
+      font-size: 26px;
+      color: #222;
+      background-color: gainsboro;
+      box-shadow: 0 4px;
+      font-weight: bold;
+
     }
 
-    #controls {
-      margin-bottom: 1rem;
-    }
-
-    #controls button {
-      background: #444;
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      margin: 0 5px;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-
-    #controls button:hover {
-      background: #666;
-    }
-
-    #flipbook-container {
-      overflow: hidden;
-      width: 100%;
+    #book-container {
       display: flex;
       justify-content: center;
+      margin-top: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     }
 
-    #flipbook {
-      width: 1600px;
-      height: 1000px;
+    #book {
+      width: 800px;
+      height: 550px;
     }
 
-    #flipbook .page {
-      width: 400px;
-      height: 500px;
-      background-color: white;
-    }
-
-    #flipbook .page img {
+    .page img {
       width: 100%;
       height: 100%;
-      display: block;
+      object-fit: contain;
+    }
+
+    .controls {
+      position: absolute;
+      top: 60%;
+      width: 65%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    .arrow {
+      background: rgba(0, 0, 0, 0.4);
+      color: #fff;
+      font-size: 33px;
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      line-height: 60px;
+      border-radius: 5px;
+      pointer-events: auto;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .zoom-controls {
+      position: absolute;
+      top: 230px;
+      right: 264px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .zoom-button {
+      background: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      width: 36px;
+      height: 36px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .page-scroll {
+      margin: 20px auto 0;
+      width: 90%;
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: 20px;
+    }
+
+    .thumbnail {
+      display: inline-block;
+      width: 80px;
+      height: 100px;
+      margin-right: 10px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
-    @media (max-width: 900px) {
-      #flipbook {
-        transform: scale(0.8);
-        transform-origin: top;
-      }
+    .thumbnail:hover::after {
+      content: attr(data-page);
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
     }
 
-    
   </style>
-
-  <!-- Scripts -->
-  <!-- <script src="js/jquery.min.js"></script> -->
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-  crossorigin="anonymous"></script>
-  <!-- <script src="js/jquery-ui.min.js"></script> -->
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js" 
-  integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" 
-  crossorigin="anonymous"></script>
-  <script src="js/turn.min.js"></script>
 </head>
 <body>
 
-  <h1>ইউরেকা ১ বর্ষ ১ সংখ্যা</h1>
+<h1>ইউরেকা | জুলাই ২০২৫</h1>
 
-  <div id="controls">
-    <button onclick="zoomIn()">Zoom In</button>
-    <button onclick="zoomOut()">Zoom Out</button>
-    <button onclick="resetZoom()">Reset</button>
+<div id="book-container">
+  <div id="book">
+    <!-- Pages will go here -->
+    <!-- Let's assume 60 pages -->
+    <!-- You can change 60 to the actual page count -->
+    <!-- Load using your image method -->
+    <!-- Sample: -->
+    <!-- <div class="page"><img src="images/Eureka 1st issue july 2025-1.webp"></div> -->
+
+    <div class="page"><img src="images/Eureka 1st issue july 2025-1.webp" alt="Page 1"></div>
+    <div class="page"><img src="images/Eureka 1st issue july 2025-2.webp" alt="Page 2"></div>
+    <div class="page"><img src="images/Eureka 1st issue july 2025-3.webp" alt="Page 3"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-4.webp" alt="Page 4"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-5.webp" alt="Page 5"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-6.webp" alt="Page 6"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-7.webp" alt="Page 7"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-8.webp" alt="Page 8"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-9.webp" alt="Page 9"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-10.webp" alt="Page 10"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-11.webp" alt="Page 11"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-12.webp" alt="Page 12"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-13.webp" alt="Page 13"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-14.webp" alt="Page 14"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-15.webp" alt="Page 15"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-16.webp" alt="Page 16"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-17.webp" alt="Page 17"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-18.webp" alt="Page 18"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-19.webp" alt="Page 19"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-20.webp" alt="Page 20"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-21.webp" alt="Page 21"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-22.webp" alt="Page 22"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-23.webp" alt="Page 23"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-24.webp" alt="Page 24"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-25.webp" alt="Page 25"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-26.webp" alt="Page 26"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-27.webp" alt="Page 27"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-28.webp" alt="Page 28"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-29.webp" alt="Page 29"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-30.webp" alt="Page 30"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-31.webp" alt="Page 31"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-32.webp" alt="Page 32"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-33.webp" alt="Page 33"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-34.webp" alt="Page 34"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-35.webp" alt="Page 35"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-36.webp" alt="Page 36"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-37.webp" alt="Page 37"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-38.webp" alt="Page 38"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-39.webp" alt="Page 39"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-40.webp" alt="Page 40"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-41.webp" alt="Page 41"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-42.webp" alt="Page 42"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-43.webp" alt="Page 43"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-44.webp" alt="Page 44"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-45.webp" alt="Page 45"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-46.webp" alt="Page 46"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-47.webp" alt="Page 47"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-48.webp" alt="Page 48"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-49.webp" alt="Page 49"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-50.webp" alt="Page 50"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-51.webp" alt="Page 51"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-52.webp" alt="Page 52"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-53.webp" alt="Page 53"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-54.webp" alt="Page 54"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-55.webp" alt="Page 55"></div>
+    <div class="page"><img src="images\Eureka 1st issue july 2025-56.webp" alt="Page 56"></div> 
   </div>
 
-  <div id="flipbook-container">
-    <div id="flipbook">
-      <div class="page"><img src="images\Eureka 1st issue july 2025-1.webp" alt="Page 1"></div> <!-- Cover -->
-      <div class="page"><img src="images\Eureka 1st issue july 2025-2.webp" alt="Page 2"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-3.webp" alt="Page 3"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-4.webp" alt="Page 4"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-5.webp" alt="Page 5"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-6.webp" alt="Page 6"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-7.webp" alt="Page 7"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-8.webp" alt="Page 8"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-9.webp" alt="Page 9"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-10.webp" alt="Page 10"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-11.webp" alt="Page 11"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-12.webp" alt="Page 12"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-13.webp" alt="Page 13"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-14.webp" alt="Page 14"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-15.webp" alt="Page 15"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-16.webp" alt="Page 16"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-17.webp" alt="Page 17"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-18.webp" alt="Page 18"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-19.webp" alt="Page 19"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-20.webp" alt="Page 20"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-21.webp" alt="Page 21"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-22.webp" alt="Page 22"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-23.webp" alt="Page 23"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-24.webp" alt="Page 24"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-25.webp" alt="Page 25"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-26.webp" alt="Page 26"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-27.webp" alt="Page 27"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-28.webp" alt="Page 28"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-29.webp" alt="Page 29"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-30.webp" alt="Page 30"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-31.webp" alt="Page 31"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-32.webp" alt="Page 32"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-33.webp" alt="Page 33"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-34.webp" alt="Page 34"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-35.webp" alt="Page 35"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-36.webp" alt="Page 36"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-37.webp" alt="Page 37"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-38.webp" alt="Page 38"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-39.webp" alt="Page 39"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-40.webp" alt="Page 40"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-41.webp" alt="Page 41"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-42.webp" alt="Page 42"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-43.webp" alt="Page 43"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-44.webp" alt="Page 44"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-45.webp" alt="Page 45"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-46.webp" alt="Page 46"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-47.webp" alt="Page 47"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-48.webp" alt="Page 48"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-49.webp" alt="Page 49"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-50.webp" alt="Page 50"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-51.webp" alt="Page 51"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-52.webp" alt="Page 52"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-53.webp" alt="Page 53"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-54.webp" alt="Page 54"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-55.webp" alt="Page 55"></div>
-      <div class="page"><img src="images\Eureka 1st issue july 2025-56.webp" alt="Page 56"></div> <!-- Back Cover -->
-    </div>
+  <div class="controls">
+    <div class="arrow" id="prev">&#8592;</div>
+    <div class="arrow" id="next">&#8594;</div>
   </div>
 
-  <script>
-    let zoomLevel = 1;
+  <div class="zoom-controls">
+    <button class="zoom-button" id="zoom-in">+</button>
+    <button class="zoom-button" id="zoom-out">−</button>
+  </div>
+</div>
 
-    $(function () {
-      $('#flipbook').turn({
-        width: 800,
-        height: 500,
-        autoCenter: true,
-        display: 'double',
-        elevation: 50,
-        gradients: true
-      });
+<div class="page-scroll" id="thumbnails">
+  <!-- Thumbnails will go here -->
+</div>
 
-      $('#flipbook-container').draggable({
-        cursor: "grab"
-      });
-    });
+<script>
+  const totalPages = 56; // Change if different
+  const book = $('#book');
 
-    function applyZoom() {
-      $('#flipbook').css('transform', `scale(${zoomLevel})`);
-      $('#flipbook').css('transform-origin', 'top center');
-    }
+  // Add pages
+  for (let i = 1; i <= totalPages; i++) {
+    book.append(`<div class="page"><img src="images/Eureka 1st issue july 2025-${i}.webp" alt="Page ${i}"></div>`);
+    $('#thumbnails').append(`<div class="thumbnail" data-page="${i}"><img src="images/Eureka 1st issue july 2025-${i}.webp"></div>`);
+  }
 
-    function zoomIn() {
+  // Turn.js init
+  book.turn({
+    width: 800,
+    height: 550,
+    autoCenter: true,
+
+    display: 'double',
+    acceleration: true,
+    gradients: true,
+    elevation: 50
+  });
+
+  // Arrow click
+  $('#prev').click(() => book.turn('previous'));
+  $('#next').click(() => book.turn('next'));
+
+  // Keyboard
+  $(document).keydown(function (e) {
+    if (e.key === 'ArrowLeft') book.turn('previous');
+    if (e.key === 'ArrowRight') book.turn('next');
+  });
+
+  // Thumbnails scroll to page
+  $('#thumbnails').on('click', '.thumbnail', function () {
+    const page = $(this).data('page');
+    book.turn('page', page);
+  });
+
+  // Zoom logic
+  let zoomLevel = 1;
+  const maxZoom = 2;
+  const minZoom = 1;
+
+  function applyZoom() {
+    $('#book').css('transform', `scale(${zoomLevel})`);
+    $('#book').css('transform-origin', 'center center');
+  }
+
+  $('#zoom-in').click(() => {
+    if (zoomLevel < maxZoom) {
       zoomLevel += 0.2;
       applyZoom();
     }
+  });
 
-    function zoomOut() {
-      zoomLevel = Math.max(1, zoomLevel - 0.2);
+  $('#zoom-out').click(() => {
+    if (zoomLevel > minZoom) {
+      zoomLevel -= 0.2;
       applyZoom();
     }
-
-    function resetZoom() {
-      zoomLevel = 1;
-      applyZoom();
-      $('#flipbook-container').scrollTop(0).scrollLeft(0);
-    }
-  </script>
+  });
+</script>
 
 </body>
 </html>
