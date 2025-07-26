@@ -94,6 +94,45 @@
       overflow-x: auto;
       white-space: nowrap;
       padding: 20px;
+      /* direction: rtl; */
+      scroll-behavior: smooth;
+    }
+
+    .page-scroll-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 10px auto;
+      width: 100%;
+      position: relative;
+      gap: 10px;
+    }
+
+    .scroll-arrow {
+      font-size: 24px;
+     background: #eee;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    .scroll-arrow:hover {
+      background: #ccc;
+    }
+
+
+
+    .page-scroll::-webkit-scrollbar {
+      height: 12px;
+      background: #ddd;
+    }
+
+    .page-scroll::-webkit-scrollbar-thumb{
+      background: #888;
+      border-radius: 6px;
     }
 
     .thumbnail {
@@ -140,7 +179,7 @@
     <!-- Sample: -->
     <!-- <div class="page"><img src="images/Eureka 1st issue july 2025-1.webp"></div> -->
 
-    <div class="page"><img src="images/Eureka 1st issue july 2025-1.webp" alt="Page 1"></div>
+    <!-- <div class="page"><img src="images/Eureka 1st issue july 2025-1.webp" alt="Page 1"></div>
     <div class="page"><img src="images/Eureka 1st issue july 2025-2.webp" alt="Page 2"></div>
     <div class="page"><img src="images/Eureka 1st issue july 2025-3.webp" alt="Page 3"></div>
     <div class="page"><img src="images\Eureka 1st issue july 2025-4.webp" alt="Page 4"></div>
@@ -195,7 +234,7 @@
     <div class="page"><img src="images\Eureka 1st issue july 2025-53.webp" alt="Page 53"></div>
     <div class="page"><img src="images\Eureka 1st issue july 2025-54.webp" alt="Page 54"></div>
     <div class="page"><img src="images\Eureka 1st issue july 2025-55.webp" alt="Page 55"></div>
-    <div class="page"><img src="images\Eureka 1st issue july 2025-56.webp" alt="Page 56"></div> 
+    <div class="page"><img src="images\Eureka 1st issue july 2025-56.webp" alt="Page 56"></div>  -->
   </div>
 
   <div class="controls">
@@ -209,9 +248,22 @@
   </div>
 </div>
 
-<div class="page-scroll" id="thumbnails">
+<!-- <div class="page-scroll" id="thumbnails"> -->
   <!-- Thumbnails will go here -->
+<!-- </div> -->
+
+<div class="page-scroll-wrapper">
+  <button id="scroll-left" class="scroll-arrow">‹</button>
+
+  <div class="page-scroll" id="page-scroll">
+    <div id="thumbnails">
+      <!-- Thumbnails will be added dynamically -->
+    </div>
+  </div>
+
+  <button id="scroll-right" class="scroll-arrow">›</button>
 </div>
+
 
 <script>
   const totalPages = 56; // Change if different
@@ -251,6 +303,8 @@
     book.turn('page', page);
   });
 
+  $('#thumbnails').css('direction', 'ltr');
+
   // Zoom logic
   let zoomLevel = 1;
   const maxZoom = 2;
@@ -274,6 +328,21 @@
       applyZoom();
     }
   });
+
+  const scrollContainer = document.getElementById('page-scroll');
+  const scrollLeftBtn = document.getElementById('scroll-left');
+  const scrollRightBtn = document.getElementById('scroll-right');
+
+  // Scroll by 200 pixels on each click (adjust as needed)
+  scrollLeftBtn.addEventListener('click', () => {
+    scrollContainer.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+
+  scrollRightBtn.addEventListener('click', () => {
+    scrollContainer.scrollBy({ left: 200, behavior: 'smooth' });
+  });
+
+
 </script>
 
 </body>
